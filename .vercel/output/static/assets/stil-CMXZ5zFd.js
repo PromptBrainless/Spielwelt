@@ -1,0 +1,17 @@
+import{d as e}from"./link-CPd0-xJB.js";import{p as t,t as n}from"./app-shell-zQ99IBSQ.js";var r=`You are painting location plaques for Drosselau, a muddy Reikland market town of about 800 souls, year 2512 IZ.
+
+FORMAT (must hold on every image):
+- A single house or civic spot as a watercolor / lithograph location plaque (Ortsschild), not a Magic: The Gathering card, not a poster, not a map.
+- Arched / semicircular top. Cream parchment field. Thin umber rule.
+- German house name on a cream banner across the upper arch, painted lettering, legible.
+- A dark footer band with the word DROSSELAU in small caps.
+- Camera: street level, slightly raised, one building filling the frame, wet ground, overcast north light.
+- Palette: umber, ochre, soot, damp straw, lichen green. No marble white, no gold leaf, no neon.
+
+HARD LAWS:
+- No cathedral, no marble hospice, no closed Morr church door, no Latin crucifix as the main sign.
+- No readable word WARHAMMER on stone.
+- Cult marks only where they belong: hammer+comet at the Sigmar chapel and wayside shrine; open portal, raven, dark roses at Morr; X and dice-pips for Ranald; worn mother-and-child at poor Shallya (no halo). House 57 stays a house, not a chapel.
+- Shallya is poor. Graf Albrecht is not in town.
+
+When EDITING: change only what the user asked. Keep plaque frame, German name banner, Drosselau footer, wet-street watercolor look, and the same building identity. Do not restyle the whole town.`,i=e();function a(){return(0,i.jsxs)(n,{children:[(0,i.jsx)(`h1`,{className:`font-serif text-4xl`,children:`Bildstil · Grok`}),(0,i.jsx)(`p`,{className:`max-w-[62ch] text-[18px] leading-relaxed text-ink-soft`,children:`Die grafische Sorge sitzt hier, nicht in einer 3D-Stadt. Jedes Ortsschild bleibt ein Aquarell-Druck: Bogen oben, deutscher Name, Leiste DROSSELAU, nasse Straße. Grok bekommt denselben Brief wie du — plus den Stoff des Bezirks — und ändert nur, was du am Ort anweist.`}),(0,i.jsx)(`div`,{className:`mt-8 grid gap-4 md:grid-cols-2`,children:t.districts.map(e=>(0,i.jsxs)(`article`,{className:`rounded-[22px] border border-line bg-card p-4`,children:[(0,i.jsxs)(`h2`,{className:`m-0 text-xl`,children:[e.num,` · `,e.name]}),(0,i.jsx)(`p`,{className:`mt-2 text-sm text-ink-soft`,children:e.intro}),(0,i.jsx)(`p`,{className:`mt-2 font-sans text-xs uppercase tracking-wider text-mute`,children:`Stoff`}),(0,i.jsx)(`p`,{className:`m-0`,children:e.fabric})]},e.key))}),(0,i.jsx)(`h2`,{className:`mt-10 font-serif text-2xl`,children:`Was Grok nicht darf`}),(0,i.jsx)(`ul`,{className:`mt-3 max-w-[70ch] list-disc space-y-2 pl-5`,children:t.laws.map(e=>(0,i.jsx)(`li`,{children:e},e))}),(0,i.jsx)(`h2`,{className:`mt-10 font-serif text-2xl`,children:`Maschinenbrief`}),(0,i.jsx)(`pre`,{className:`mt-3 max-w-[75ch] overflow-auto whitespace-pre-wrap rounded-[22px] border border-line bg-card p-4 font-sans text-[13px] leading-relaxed text-ink-soft`,children:r}),(0,i.jsx)(`p`,{className:`mt-6 max-w-[62ch] text-ink-soft`,children:`Am Ort: Änderung auf Deutsch schreiben → Auftrag schärfen → Schild bearbeiten. Das Ergebnis bleibt in diesem Browser. Heftfoto setzt zurück. Ein Klick, ein Bild — kein Dauerfeuer gegen die API.`})]})}export{a as component};

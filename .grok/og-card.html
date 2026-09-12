@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <style>
+    @font-face {
+      font-family: "Source Serif 4";
+      font-style: normal;
+      font-weight: 700;
+      src: url("fonts/source-serif-4-700.ttf") format("truetype");
+    }
+    @font-face {
+      font-family: "Source Sans 3";
+      font-style: normal;
+      font-weight: 700;
+      src: url("fonts/source-sans-3-700.ttf") format("truetype");
+    }
+    html, body { margin: 0; padding: 0; width: 1200px; height: 630px; overflow: hidden; }
+    .stage {
+      position: relative;
+      width: 1200px;
+      height: 630px;
+      background:
+        radial-gradient(900px 420px at 8% -8%, #f3e6c8 0%, transparent 55%),
+        radial-gradient(800px 380px at 110% 0%, #e7d3ae 0%, transparent 50%),
+        #efe2c8;
+      color: #1c140c;
+    }
+    .grain, .map { position: absolute; inset: 0; pointer-events: none; }
+    .grain {
+      opacity: 0.16;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.11  0 0 0 0 0.08  0 0 0 0 0.05  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    }
+    .map {
+      opacity: 0.09;
+      background-image:
+        linear-gradient(#7a3418 1px, transparent 1px),
+        linear-gradient(90deg, #7a3418 1px, transparent 1px);
+      background-size: 80px 80px;
+      background-position: 20px 15px;
+    }
+    .year, .corner {
+      position: absolute;
+      font-family: "Source Sans 3", sans-serif;
+      font-size: 14px;
+      letter-spacing: 0.28em;
+      color: #7a3418;
+      opacity: 0.7;
+    }
+    .year { left: 44px; bottom: 26px; }
+    .corner { top: 26px; right: 44px; }
+    .plaque {
+      position: absolute;
+      left: 50%;
+      top: 78px;
+      transform: translateX(-50%);
+      width: 700px;
+      height: 474px;
+      box-sizing: border-box;
+      padding: 14px 14px 10px;
+      background: linear-gradient(180deg, #8c3d1c 0%, #7a3418 48%, #5c2712 100%);
+      border-radius: 210px 210px 18px 18px;
+      box-shadow:
+        0 20px 44px rgba(28, 20, 12, 0.26),
+        inset 0 0 0 3px #c4a15a,
+        inset 0 0 0 9px #7a3418,
+        inset 0 0 0 11px #efe2c8;
+      display: flex;
+      flex-direction: column;
+    }
+    .arch {
+      height: 188px;
+      flex: 0 0 188px;
+      border-radius: 188px 188px 8px 8px;
+      overflow: hidden;
+      position: relative;
+      background: #6d5a45;
+      box-shadow: inset 0 0 0 2px rgba(196, 161, 90, 0.65);
+    }
+    .arch img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 50% 16%;
+      filter: saturate(0.9) contrast(1.08) sepia(0.08) brightness(1.12);
+    }
+    .arch::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(239,226,200,0.14), transparent 40%, rgba(28,20,12,0.08) 100%);
+      pointer-events: none;
+    }
+    .banner {
+      flex: 0 0 168px;
+      margin: 12px 22px 0;
+      background: #f7eedc;
+      border-radius: 8px;
+      border: 1.5px solid #1c140c;
+      box-shadow: inset 0 0 0 5px #efe2c8;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 28px 12px;
+      box-sizing: border-box;
+    }
+    .title {
+      margin: 0;
+      font-family: "Source Serif 4", serif;
+      font-weight: 700;
+      font-size: 82px;
+      line-height: 0.92;
+      letter-spacing: -0.02em;
+      color: #1c140c;
+    }
+    .subtitle {
+      margin: 10px 0 0;
+      font-family: "Source Sans 3", sans-serif;
+      font-weight: 700;
+      font-size: 21px;
+      letter-spacing: 0.34em;
+      text-indent: 0.34em;
+      text-transform: uppercase;
+      color: #7a3418;
+    }
+    .foot {
+      flex: 0 0 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Source Sans 3", sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      letter-spacing: 0.46em;
+      text-indent: 0.46em;
+      color: #c4a15a;
+    }
+  </style>
+</head>
+<body>
+  <div class="stage">
+    <div class="map"></div>
+    <div class="grain"></div>
+    <div class="corner">REIKLAND</div>
+    <div class="year">ANNO 2512</div>
+    <div class="plaque">
+      <div class="arch">
+        <img src="file:///workspace/public/fotos/2.jpg" alt="" />
+      </div>
+      <div class="banner">
+        <p class="title">Drosselau</p>
+        <p class="subtitle">Ortskatalog</p>
+      </div>
+      <div class="foot">DROSSELAU</div>
+    </div>
+  </div>
+</body>
+</html>
