@@ -22,6 +22,9 @@ docs) → **`app-data`** — mandatory before writing **or refusing** such
 integration, and when you think "can't access user data", "needs OAuth",
 "Grok Dashboard instead": it serves viewer connector data via the gate;
 **`neon`** / **`auth`** only per §0.5.
+**Quest / Auftrag / Questgeber / Trigger / SL-Modul / was muss ich sagen**
+→ **`drosselau-quest`**. Knoten füllen, Heft-Grenzen lesen. Ins Catalog nur wenn
+der Nutzer **einbauen / laden** sagt — das ist jetzt der Fall für die drei Reihen.
 
 **Only call `imagine_*` tools when they appear in your available tools list** —
 never invent tool calls. Without them ship art with **CSS, SVG, emoji, canvas

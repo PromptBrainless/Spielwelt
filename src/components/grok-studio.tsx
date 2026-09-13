@@ -34,12 +34,16 @@ export function GrokStudio({
 
   async function currentDataUri(): Promise<string> {
     const fallback = photoSrc(place);
-    const url = await getPlaceImageUrl(place.id, fallback);
-    if (url.startsWith("blob:")) {
-      const blob = await fetch(url).then((r) => r.blob());
-      return blobToDataUri(blob);
+    try {
+      const url = await getPlaceImageUrl(place.id, fallback);
+      if (url.startsWith("blob:")) {
+        const blob = await fetch(url).then((r) => r.blob());
+        return blobToDataUri(blob);
+      }
+      return fetchAsDataUri(url);
+    } catch {
+      return fetchAsDataUri(fallback);
     }
-    return fetchAsDataUri(url);
   }
 
   async function sharpen() {
@@ -101,16 +105,24 @@ export function GrokStudio({
   }
 
   async function revert() {
-    await clearPlaceImage(place.id);
-    setNote("Heftfoto wieder aktiv.");
-    onImageChange();
+    try {
+      await clearPlaceImage(place.id);
+      setNote("Heftfoto wieder aktiv.");
+      onImageChange();
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Zurücksetzen fehlgeschlagen.");
+    }
   }
 
   async function onFile(file: File | null) {
     if (!file) return;
-    await putPlaceImage(place.id, file);
-    setNote("Eigenes Foto gespeichert.");
-    onImageChange();
+    try {
+      await putPlaceImage(place.id, file);
+      setNote("Eigenes Foto gespeichert.");
+      onImageChange();
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Foto nicht speicherbar.");
+    }
   }
 
   if (available === false) {

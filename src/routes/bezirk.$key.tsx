@@ -1,8 +1,8 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { AppShell } from "@/components/app-shell";
-import { PlaceImage } from "@/components/place-image";
-import { PlacePills } from "@/components/pills";
-import { districtByKey, photoSrc, placesInDistrict } from "@/lib/catalog";
+import { PlaceCard } from "@/components/place-card";
+import { DistrictDossier } from "@/components/sl-dossier";
+import { districtByKey, placesInDistrict } from "@/lib/catalog";
 import { mergePlace, useCatalog } from "@/lib/store";
 
 export const Route = createFileRoute("/bezirk/$key")({
@@ -15,49 +15,40 @@ function BezirkPage() {
   const patches = useCatalog((s) => s.patches);
   const customPlaces = useCatalog((s) => s.customPlaces);
   const districtPatches = useCatalog((s) => s.districtPatches);
-  const hideSl = useCatalog((s) => s.hideSl);
+  const sl = useCatalog((s) => s.sicht) === "sl";
   const list = placesInDistrict(key, customPlaces).map((p) => mergePlace(p, patches));
 
   if (!d) {
     return (
       <AppShell>
-        <p>Bezirk nicht gefunden.</p>
+        <p>Dieser Bezirk fehlt im Katalog.</p>
       </AppShell>
     );
   }
 
   return (
     <AppShell>
-      <p className="m-0 font-sans text-xs uppercase tracking-[0.14em] text-mute">
-        {d.num} · Bezirk
-      </p>
-      <h1 className="mt-1 font-serif text-4xl">{d.name}</h1>
-      <p className="max-w-[62ch] text-[18px] text-ink-soft">
+      {sl ? (
+        <p className="kicker m-0">
+          {d.num} · Bezirk
+        </p>
+      ) : (
+        <p className="kicker m-0">Drosselau</p>
+      )}
+      <h1 className="mt-2 font-serif text-4xl tracking-tight">
+        {districtPatches[d.key]?.name || d.name}
+      </h1>
+      <div className="folio-rule mt-4" />
+      <p className="mt-3 max-w-[62ch] text-[18px] leading-relaxed text-ink-soft">
         {districtPatches[d.key]?.intro || d.intro}
       </p>
-      <p className="text-sm text-mute">{districtPatches[d.key]?.fabric || d.fabric}</p>
+      {sl ? (
+        <p className="text-sm text-mute">{districtPatches[d.key]?.fabric || d.fabric}</p>
+      ) : null}
+      {sl ? <DistrictDossier district={d.key} /> : null}
       <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {list.map((p) => (
-          <article key={p.id} className="overflow-hidden rounded-[22px] border border-line bg-card">
-            <Link to="/ort/$id" params={{ id: p.id }} className="block text-ink no-underline">
-              <PlaceImage
-                id={p.id}
-                fallback={photoSrc(p)}
-                alt={p.name}
-                className="h-44 w-full object-cover"
-              />
-              <div className="p-3">
-                <div className="font-sans text-xs text-mute">{p.id}</div>
-                <h3 className="m-0 text-lg">{p.name}</h3>
-                <div className="mt-2">
-                  <PlacePills place={p} />
-                </div>
-                <p className="mt-2 text-sm text-ink-soft">
-                  {hideSl ? p.sieht : p.am_tisch}
-                </p>
-              </div>
-            </Link>
-          </article>
+          <PlaceCard key={p.id} place={p} />
         ))}
       </div>
     </AppShell>

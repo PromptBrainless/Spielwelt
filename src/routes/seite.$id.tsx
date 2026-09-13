@@ -1,17 +1,22 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { AppShell } from "@/components/app-shell";
+import { SnippetSelect } from "@/components/field-edit";
+import { SlGate } from "@/components/sl-gate";
 import { districtByKey } from "@/lib/catalog";
 import { useCatalog } from "@/lib/store";
 
 export const Route = createFileRoute("/seite/$id")({
-  component: SeitePage,
+  component: () => (
+    <SlGate>
+      <SeitePage />
+    </SlGate>
+  ),
 });
 
 function SeitePage() {
   const { id } = Route.useParams();
   const extraPages = useCatalog((s) => s.extraPages);
   const upsertPage = useCatalog((s) => s.upsertPage);
-  const hideSl = useCatalog((s) => s.hideSl);
   const page = extraPages.find((p) => p.id === id);
 
   if (!page) {
@@ -27,14 +32,6 @@ function SeitePage() {
 
   const d = page.district ? districtByKey(page.district) : undefined;
 
-  if (hideSl) {
-    return (
-      <AppShell>
-        <p className="text-ink-soft">Diese Seite ist nur für die Spielleitung.</p>
-      </AppShell>
-    );
-  }
-
   return (
     <AppShell>
       <p className="m-0 font-sans text-xs uppercase tracking-[0.14em] text-mute">Eigene SL-Seite</p>
@@ -48,6 +45,15 @@ function SeitePage() {
           {d.num} · {d.name}
         </p>
       ) : null}
+      <div className="mt-4 max-w-[72ch]">
+        <SnippetSelect
+          label="Gemerktes übernehmen…"
+          keys={["sieht", "riecht", "wer", "spieltext", "szene", "sl", "geruecht", "eskalation"]}
+          onPick={(text) =>
+            upsertPage({ ...page, body: page.body ? `${page.body.trim()}\n\n${text}` : text })
+          }
+        />
+      </div>
       <textarea
         value={page.body}
         onChange={(e) => upsertPage({ ...page, body: e.target.value })}

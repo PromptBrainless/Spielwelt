@@ -23,15 +23,18 @@ export function PlaceImage({
     let dead = false;
     let objectUrl: string | null = null;
     setBroken(false);
-    if (!local) {
-      setSrc(fallback);
-      return;
-    }
+    setSrc(fallback);
+    if (!local) return;
+
     void getPlaceImageUrl(id, fallback).then((url) => {
-      if (dead) return;
+      if (dead) {
+        if (url.startsWith("blob:")) URL.revokeObjectURL(url);
+        return;
+      }
       if (url.startsWith("blob:")) objectUrl = url;
       setSrc(url);
     });
+
     return () => {
       dead = true;
       if (objectUrl) URL.revokeObjectURL(objectUrl);
@@ -56,7 +59,13 @@ export function PlaceImage({
       src={src}
       alt={alt}
       className={className}
-      onError={() => setBroken(true)}
+      onError={() => {
+        if (src !== fallback) {
+          setSrc(fallback);
+          return;
+        }
+        setBroken(true);
+      }}
     />
   );
 }

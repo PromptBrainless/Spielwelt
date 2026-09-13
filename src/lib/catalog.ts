@@ -52,8 +52,19 @@ export function slugId(name: string): string {
 }
 
 export function allPlaces(extra: Place[] = []): Place[] {
-  const seen = new Set(catalog.places.map((p) => String(p.id)));
-  return [...catalog.places, ...extra.filter((p) => !seen.has(String(p.id)))];
+  const map = new Map(catalog.places.map((p) => [String(p.id), p]));
+  const order = catalog.places.map((p) => String(p.id));
+  for (const p of extra) {
+    const id = String(p.id);
+    const prev = map.get(id);
+    if (prev) {
+      map.set(id, { ...prev, ...p, id: prev.id });
+    } else {
+      map.set(id, p);
+      order.push(id);
+    }
+  }
+  return order.map((id) => map.get(id)!);
 }
 
 export function districtByKey(key: string): District | undefined {
@@ -61,13 +72,57 @@ export function districtByKey(key: string): District | undefined {
 }
 
 export function placeById(id: string, extra: Place[] = []): Place | undefined {
-  const custom = extra.find((p) => String(p.id) === String(id));
-  if (custom) return custom;
-  return catalog.places.find((p) => String(p.id) === String(id));
+  return allPlaces(extra).find((p) => String(p.id) === String(id));
 }
 
 export function placesInDistrict(key: string, extra: Place[] = []): Place[] {
   return allPlaces(extra).filter((p) => p.district === key);
+}
+
+export function hasPlay(place: Place): boolean {
+  return Boolean(place.spieltext || place.spielkern || place.szene || place.eskalation);
+}
+
+export function displayName(place: Place): string {
+  const haus = (place.haus || "").trim();
+  if (haus) return haus;
+  const familie = (place.familie || "").trim();
+  if (familie) return `Haus ${familie}`;
+  return place.name.replace(/\s+(Arbeit|Wohnen)$/i, "").trim();
+}
+
+export function tableTeaser(place: Place): string {
+  const src = (place.spieltext || place.sieht || "").trim();
+  if (!src) return "";
+  const line = src.split(/\n/)[0].trim();
+  if (line.length <= 150) return line;
+  return `${line.slice(0, 147).replace(/\s+\S*$/, "")}…`;
+}
+
+export function searchBlob(place: Place, includeSl: boolean): string {
+  const parts = [
+    place.name,
+    place.haus,
+    place.familie,
+    place.sieht,
+    place.riecht,
+    place.wer,
+    place.typ,
+    place.bezirk,
+    place.spieltext,
+    place.szene,
+  ];
+  if (includeSl) {
+    parts.push(
+      place.kanon,
+      place.am_tisch,
+      place.spielkern,
+      place.geruecht,
+      place.sl,
+      place.eskalation,
+    );
+  }
+  return parts.filter(Boolean).join(" ").toLowerCase();
 }
 
 export function photoSrc(place: { photo?: string; id: string }): string {

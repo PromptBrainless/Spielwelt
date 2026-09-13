@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { AppShell } from "@/components/app-shell";
+import { SlGate } from "@/components/sl-gate";
 import { allPlaces, catalog, emptyPlace, slugId } from "@/lib/catalog";
 import { grokStatus, ingestUpload } from "@/lib/grok/server";
 import {
@@ -12,7 +13,11 @@ import { useCatalog, type PlacePatch } from "@/lib/store";
 import type { CatalogPacket } from "@/lib/types";
 
 export const Route = createFileRoute("/eingang")({
-  component: EingangPage,
+  component: () => (
+    <SlGate>
+      <EingangPage />
+    </SlGate>
+  ),
 });
 
 type ImageDraft = {
@@ -62,6 +67,12 @@ function EingangPage() {
   const [drag, setDrag] = useState(false);
 
   const taken = useMemo(() => new Set(places.map((p) => String(p.id))), [places]);
+
+  useEffect(() => {
+    return () => {
+      images.forEach((img) => URL.revokeObjectURL(img.preview));
+    };
+  }, [images]);
 
   async function addFiles(list: FileList | File[]) {
     const next: ImageDraft[] = [];
@@ -160,14 +171,15 @@ function EingangPage() {
   async function commitImages() {
     setErr("");
     let n = 0;
+    const used = new Set(taken);
     for (const img of images) {
       if (img.attachTo) {
         await putPlaceImage(img.attachTo, img.blob);
         n += 1;
         continue;
       }
-      const id = uniqueId(slugId(img.name), taken);
-      taken.add(id);
+      const id = uniqueId(slugId(img.name), used);
+      used.add(id);
       upsertCustomPlace(
         emptyPlace({
           id,
@@ -224,9 +236,11 @@ function EingangPage() {
     };
     const blob = new Blob([JSON.stringify(packet, null, 2)], { type: "application/json" });
     const a = document.createElement("a");
-    a.href = URL.createObjectURL(blob);
+    const url = URL.createObjectURL(blob);
+    a.href = url;
     a.download = "drosselau-paket.json";
     a.click();
+    setTimeout(() => URL.revokeObjectURL(url), 2000);
     setMsg("Paket gespeichert. Bilder, die du ersetzt oder neu gelegt hast, sind drin.");
   }
 

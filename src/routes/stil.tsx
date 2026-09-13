@@ -1,10 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { AppShell } from "@/components/app-shell";
+import { SlGate } from "@/components/sl-gate";
 import { catalog } from "@/lib/catalog";
 import { STYLE_LOCK } from "@/lib/style-lock";
 
 export const Route = createFileRoute("/stil")({
-  component: StilPage,
+  component: () => (
+    <SlGate>
+      <StilPage />
+    </SlGate>
+  ),
 });
 
 function StilPage() {

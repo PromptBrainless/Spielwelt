@@ -1,0 +1,36 @@
+{
+  "url": "http://127.0.0.1:8080/ort/3",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "Drosselau Ortskatalog",
+      "hasCanvas": false,
+      "bodyTextLen": 2081,
+      "bodyTextHash": "31768c016f00798494f07dc37885db143606704ffa997f40c2b662b330936e07",
+      "bodyTextPrefix": "DROSSELAU Ortskatalog 2512 Am Tisch Schirm Arbeit Bezirke Vorsta",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/karr-sl.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "Drosselau Ortskatalog",
+      "hasCanvas": false,
+      "bodyTextLen": 2003,
+      "bodyTextHash": "80e41ef3257e55fabd5b4b20d98ea8113dc1aa85d37cf7dabd0cab3901f1d090",
+      "bodyTextPrefix": "DROSSELAU Ortskatalog 2512 Am Tisch Schirm Arbeit Vorstadt Tor M",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/karr-sl-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/karr-sl.json"
+}

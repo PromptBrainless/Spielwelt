@@ -1,6 +1,11 @@
+import { hasTischPlay } from "@/lib/sicht";
 import type { Place } from "@/lib/types";
+import { useCatalog } from "@/lib/store";
 
 export function PlacePills({ place }: { place: Place }) {
+  const sl = useCatalog((s) => s.sicht) === "sl";
+  if (!sl) return null;
+
   return (
     <div className="flex flex-wrap gap-2">
       <span
@@ -20,6 +25,11 @@ export function PlacePills({ place }: { place: Place }) {
       {place.status_num !== "" && place.status_num != null ? (
         <span className="rounded-full border border-line bg-card px-2.5 py-0.5 font-sans text-xs text-ink-soft">
           Status {place.status_num}
+        </span>
+      ) : null}
+      {hasTischPlay(place) ? (
+        <span className="rounded-full border border-accent/40 bg-[#f6ece4] px-2.5 py-0.5 font-sans text-xs text-accent">
+          Spielbereit
         </span>
       ) : null}
       {place.keim ? (

@@ -1,9 +1,14 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { AppShell } from "@/components/app-shell";
+import { SlGate } from "@/components/sl-gate";
 import { catalog } from "@/lib/catalog";
 
 export const Route = createFileRoute("/abgleich")({
-  component: AbgleichPage,
+  component: () => (
+    <SlGate>
+      <AbgleichPage />
+    </SlGate>
+  ),
 });
 
 function AbgleichPage() {

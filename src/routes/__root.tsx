@@ -14,7 +14,7 @@ export const Route = createRootRoute({
       { name: "theme-color", content: "#1c140c" },
       {
         name: "description",
-        content: "Drosselau 2512 — 118 Orte, Ortsschilder, SL-Karten. Grok hält den Heftstil und bearbeitet die Bilder.",
+        content: "Drosselau 2512 — Ortskatalog des Marktfleckens im Reikland.",
       },
     ],
     links: [
@@ -24,7 +24,7 @@ export const Route = createRootRoute({
       { rel: "apple-touch-icon", href: "/__grok/icon-180.png" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&display=swap",
       },
     ],
   }),

@@ -12,9 +12,16 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AbgleichRouteImport } from './routes/abgleich'
 import { Route as EingangRouteImport } from './routes/eingang'
+import { Route as HaeuserRouteImport } from './routes/haeuser'
+import { Route as LeuteRouteImport } from './routes/leute'
+import { Route as QuestRouteImport } from './routes/quest'
 import { Route as StilRouteImport } from './routes/stil'
+import { Route as TruppeRouteImport } from './routes/truppe'
+import { Route as WerkstattRouteImport } from './routes/werkstatt'
 import { Route as BezirkKeyRouteImport } from './routes/bezirk.$key'
 import { Route as OrtIdRouteImport } from './routes/ort.$id'
+import { Route as QuestIndexRouteImport } from './routes/quest.index'
+import { Route as QuestIdRouteImport } from './routes/quest.$id'
 import { Route as SeiteIdRouteImport } from './routes/seite.$id'
 
 const IndexRoute = IndexRouteImport.update({
@@ -32,9 +39,34 @@ const EingangRoute = EingangRouteImport.update({
   path: '/eingang',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HaeuserRoute = HaeuserRouteImport.update({
+  id: '/haeuser',
+  path: '/haeuser',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LeuteRoute = LeuteRouteImport.update({
+  id: '/leute',
+  path: '/leute',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const QuestRoute = QuestRouteImport.update({
+  id: '/quest',
+  path: '/quest',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const StilRoute = StilRouteImport.update({
   id: '/stil',
   path: '/stil',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TruppeRoute = TruppeRouteImport.update({
+  id: '/truppe',
+  path: '/truppe',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WerkstattRoute = WerkstattRouteImport.update({
+  id: '/werkstatt',
+  path: '/werkstatt',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BezirkKeyRoute = BezirkKeyRouteImport.update({
@@ -47,6 +79,16 @@ const OrtIdRoute = OrtIdRouteImport.update({
   path: '/ort/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const QuestIndexRoute = QuestIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => QuestRoute,
+} as any)
+const QuestIdRoute = QuestIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => QuestRoute,
+} as any)
 const SeiteIdRoute = SeiteIdRouteImport.update({
   id: '/seite/$id',
   path: '/seite/$id',
@@ -57,29 +99,49 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/abgleich': typeof AbgleichRoute
   '/eingang': typeof EingangRoute
+  '/haeuser': typeof HaeuserRoute
+  '/leute': typeof LeuteRoute
+  '/quest': typeof QuestRouteWithChildren
   '/stil': typeof StilRoute
+  '/truppe': typeof TruppeRoute
+  '/werkstatt': typeof WerkstattRoute
   '/bezirk/$key': typeof BezirkKeyRoute
   '/ort/$id': typeof OrtIdRoute
+  '/quest/$id': typeof QuestIdRoute
   '/seite/$id': typeof SeiteIdRoute
+  '/quest/': typeof QuestIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/abgleich': typeof AbgleichRoute
   '/eingang': typeof EingangRoute
+  '/haeuser': typeof HaeuserRoute
+  '/leute': typeof LeuteRoute
   '/stil': typeof StilRoute
+  '/truppe': typeof TruppeRoute
+  '/werkstatt': typeof WerkstattRoute
   '/bezirk/$key': typeof BezirkKeyRoute
   '/ort/$id': typeof OrtIdRoute
+  '/quest/$id': typeof QuestIdRoute
   '/seite/$id': typeof SeiteIdRoute
+  '/quest': typeof QuestIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/abgleich': typeof AbgleichRoute
   '/eingang': typeof EingangRoute
+  '/haeuser': typeof HaeuserRoute
+  '/leute': typeof LeuteRoute
+  '/quest': typeof QuestRouteWithChildren
   '/stil': typeof StilRoute
+  '/truppe': typeof TruppeRoute
+  '/werkstatt': typeof WerkstattRoute
   '/bezirk/$key': typeof BezirkKeyRoute
   '/ort/$id': typeof OrtIdRoute
+  '/quest/$id': typeof QuestIdRoute
   '/seite/$id': typeof SeiteIdRoute
+  '/quest/': typeof QuestIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -87,35 +149,60 @@ export interface FileRouteTypes {
     | '/'
     | '/abgleich'
     | '/eingang'
+    | '/haeuser'
+    | '/leute'
+    | '/quest'
     | '/stil'
+    | '/truppe'
+    | '/werkstatt'
     | '/bezirk/$key'
     | '/ort/$id'
+    | '/quest/$id'
     | '/seite/$id'
+    | '/quest/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/abgleich'
     | '/eingang'
+    | '/haeuser'
+    | '/leute'
     | '/stil'
+    | '/truppe'
+    | '/werkstatt'
     | '/bezirk/$key'
     | '/ort/$id'
+    | '/quest/$id'
     | '/seite/$id'
+    | '/quest'
   id:
     | '__root__'
     | '/'
     | '/abgleich'
     | '/eingang'
+    | '/haeuser'
+    | '/leute'
+    | '/quest'
     | '/stil'
+    | '/truppe'
+    | '/werkstatt'
     | '/bezirk/$key'
     | '/ort/$id'
+    | '/quest/$id'
     | '/seite/$id'
+    | '/quest/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AbgleichRoute: typeof AbgleichRoute
   EingangRoute: typeof EingangRoute
+  HaeuserRoute: typeof HaeuserRoute
+  LeuteRoute: typeof LeuteRoute
+  QuestRoute: typeof QuestRouteWithChildren
   StilRoute: typeof StilRoute
+  TruppeRoute: typeof TruppeRoute
+  WerkstattRoute: typeof WerkstattRoute
   BezirkKeyRoute: typeof BezirkKeyRoute
   OrtIdRoute: typeof OrtIdRoute
   SeiteIdRoute: typeof SeiteIdRoute
@@ -144,11 +231,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EingangRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/haeuser': {
+      id: '/haeuser'
+      path: '/haeuser'
+      fullPath: '/haeuser'
+      preLoaderRoute: typeof HaeuserRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/leute': {
+      id: '/leute'
+      path: '/leute'
+      fullPath: '/leute'
+      preLoaderRoute: typeof LeuteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/quest': {
+      id: '/quest'
+      path: '/quest'
+      fullPath: '/quest'
+      preLoaderRoute: typeof QuestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/stil': {
       id: '/stil'
       path: '/stil'
       fullPath: '/stil'
       preLoaderRoute: typeof StilRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/truppe': {
+      id: '/truppe'
+      path: '/truppe'
+      fullPath: '/truppe'
+      preLoaderRoute: typeof TruppeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/werkstatt': {
+      id: '/werkstatt'
+      path: '/werkstatt'
+      fullPath: '/werkstatt'
+      preLoaderRoute: typeof WerkstattRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/bezirk/$key': {
@@ -165,6 +287,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OrtIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/quest/': {
+      id: '/quest/'
+      path: '/'
+      fullPath: '/quest/'
+      preLoaderRoute: typeof QuestIndexRouteImport
+      parentRoute: typeof QuestRoute
+    }
+    '/quest/$id': {
+      id: '/quest/$id'
+      path: '/$id'
+      fullPath: '/quest/$id'
+      preLoaderRoute: typeof QuestIdRouteImport
+      parentRoute: typeof QuestRoute
+    }
     '/seite/$id': {
       id: '/seite/$id'
       path: '/seite/$id'
@@ -175,11 +311,28 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface QuestRouteChildren {
+  QuestIdRoute: typeof QuestIdRoute
+  QuestIndexRoute: typeof QuestIndexRoute
+}
+
+const QuestRouteChildren: QuestRouteChildren = {
+  QuestIdRoute: QuestIdRoute,
+  QuestIndexRoute: QuestIndexRoute,
+}
+
+const QuestRouteWithChildren = QuestRoute._addFileChildren(QuestRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AbgleichRoute: AbgleichRoute,
   EingangRoute: EingangRoute,
+  HaeuserRoute: HaeuserRoute,
+  LeuteRoute: LeuteRoute,
+  QuestRoute: QuestRouteWithChildren,
   StilRoute: StilRoute,
+  TruppeRoute: TruppeRoute,
+  WerkstattRoute: WerkstattRoute,
   BezirkKeyRoute: BezirkKeyRoute,
   OrtIdRoute: OrtIdRoute,
   SeiteIdRoute: SeiteIdRoute,
